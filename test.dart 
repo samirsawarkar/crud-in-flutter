@@ -1,0 +1,38 @@
+import 'package:flutter/material.dart';
+
+class StudentList extends StatelessWidget {
+  final Map<String, Map<String, String>> studentData;
+
+  StudentList({required this.studentData});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Student List'),
+      ),
+      body: ListView(
+        children: studentData.entries.map((entry) {
+          final id = entry.key;
+          final student = entry.value;
+
+          return Card(
+            margin: EdgeInsets.all(8.0),
+            elevation: 4.0,
+            child: ListTile(
+              contentPadding: EdgeInsets.all(16.0),
+              title: Text(student['name'] ?? 'Unknown'),
+              subtitle: Text('Roll Number: ${student['rollNumber'] ?? 'N/A'}'),
+            ),
+          );
+        }).toList(),
+      ),
+    );
+  }
+}
+
+void main() {
+  runApp(MaterialApp(
+    home: StudentList(studentData: studentData),
+  ));
+}
